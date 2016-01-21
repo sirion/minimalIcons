@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<script src="js/icons.js"></script>
+	<script>
+		if (!window.Promise) {
+			var req = new window.XMLHttpRequest();
+			req.open("GET", "js/es6-promise.min.js", false);
+			req.send(null);
+			eval(req.responseText);
+		}
+
+		function documentReady() {
+			return new Promise(function(resolve, reject) {
+				window.addEventListener("DOMContentLoaded", resolve);
+			});
+		}
+
+		documentReady().then(function() {
+			var codeView = document.querySelector("#codeView");
+
+			for (key in IconLibrary.icons) {
+				var container = createElement("div", {
+					class: "iconContainer"
+				});
+				var icon = IconLibrary.createIcon(key, {
+					class: "icon"
+				});
+				var iconInfo = createElement("div", {
+					class: "iconInfo",
+
+				});
+				iconInfo.appendChild(document.createTextNode("Icon: " + key));
+
+				container.addEventListener("mouseover", function(key) {
+					codeView.innerHTML = "var icon = IconLibrary.createIcon(\"" + key + "\");"
+				}.bind(this, key));
+
+				container.appendChild(icon);
+				container.appendChild(iconInfo);
+				document.querySelector("#icons").appendChild(container);
+			}
+
+		});
+
+
+	</script>
+	<style>
+		html {
+			font-family: Helvetica, Arial, sans-serif;
+		}
+
+		#codeView {
+			display: block;
+			height: 1rem;
+			background-color: #ccc;
+			padding: 1rem;
+		}
+
+		#icons {
+			text-align: center;
+		}
+
+		#icons .iconContainer {
+			display: inline-block;
+			border: 1px solid #000;
+			margin: 1rem;
+			padding: 0.5rem;
+			text-align: center;
+			width: 150px;
+			height: 200px;
+		}
+
+		#icons .iconContainer > svg {
+			stroke: #000;
+			width: 100%;
+		}
+
+		#icons .iconContainer > svg:hover {
+			stroke: #f00;
+		}
+	</style>
+</head>
+<body>
+	<h1>MinimalIcons - Demo page</h1>
+	<h2>Code-Example (hover icon):</h2>
+	<code id="codeView"></code>
+	<h2>Available Icons</h2>
+	<div id="icons"></div>
+</body>
+</html>
