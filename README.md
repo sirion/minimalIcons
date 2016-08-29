@@ -1,10 +1,6 @@
 # minimalIcons
 A set of minimal SVG Icons
 
-## svg Folder
-
-Contains svg file versions of the icons
-
 
 ## js Folder
 
